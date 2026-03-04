@@ -27,7 +27,7 @@ export default function CategoryGrid() {
               href={`/catalogo?categoria=${cat.slug}`}
               className="group block bg-bg-sage/40 py-12 px-6 text-center hover:bg-bg-sage/70 transition-all duration-300"
             >
-              <h4 className="text-lg md:text-xl font-extralight tracking-[0.2em] uppercase text-ink group-hover:tracking-[0.25em] transition-all duration-300">
+              <h4 className="text-sm md:text-xl font-extralight tracking-[0.15em] md:tracking-[0.2em] uppercase text-ink group-hover:tracking-[0.25em] transition-all duration-300 break-words">
                 {cat.name}
               </h4>
               <p className="text-[10px] tracking-[0.15em] text-ink-muted mt-2">

@@ -16,7 +16,7 @@ export default function Footer() {
         </Link>
         <span className="mx-3 text-border-medium">&middot;</span>
         <Link href="/nosotros" className="hover:text-ink transition-colors">
-          Nosotros
+          Nosotras
         </Link>
         <span className="mx-3 text-border-medium">&middot;</span>
         <Link href="/catalogo" className="hover:text-ink transition-colors">

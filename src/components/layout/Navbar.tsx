@@ -49,7 +49,7 @@ export default function Navbar() {
             href="/nosotros"
             className="text-[0.8rem] font-light tracking-[0.18em] uppercase hover:text-mint transition-colors"
           >
-            Nosotros
+            Nosotras
           </Link>
           <span className="text-border-medium mx-3">&middot;</span>
           <Link
@@ -98,7 +98,7 @@ export default function Navbar() {
           onClick={() => setIsOpen(false)}
           className="text-2xl font-extralight tracking-[0.25em] uppercase text-ink hover:text-mint transition-colors"
         >
-          Nosotros
+          Nosotras
         </Link>
         <Link
           href="/catalogo"

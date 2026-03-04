@@ -4,7 +4,7 @@ import { BRAND } from '@/lib/constants';
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
 
 export const metadata: Metadata = {
-  title: 'Nosotros',
+  title: 'Nosotras',
   description: 'Conocé la historia de MOA Accesorios. Bijouterie artesanal desde San José de Mayo, Uruguay.',
 };
 
@@ -14,7 +14,7 @@ export default function NosotrosPage() {
       {/* Header */}
       <div className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-extralight tracking-[0.25em] uppercase text-ink mb-4">
-          Nosotros
+          Nosotras
         </h1>
         <div className="w-12 h-px bg-border-medium mx-auto" />
       </div>
