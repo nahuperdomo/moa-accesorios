@@ -17,8 +17,8 @@ export default function CatalogContent() {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>(
     initialCategory ? [initialCategory] : []
   );
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-  const [onlyInStock, setOnlyInStock] = useState(false);
+  const [priceRange] = useState<[number, number]>([0, 1000]);
+  const [onlyInStock] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
@@ -77,10 +77,6 @@ export default function CatalogContent() {
       <FilterBar
         selectedCategories={selectedCategories}
         onCategoriesChange={setSelectedCategories}
-        priceRange={priceRange}
-        onPriceRangeChange={setPriceRange}
-        onlyInStock={onlyInStock}
-        onInStockChange={setOnlyInStock}
       />
 
       {/* Product grid */}

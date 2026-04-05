@@ -7,17 +7,11 @@ import { cn } from '@/lib/utils';
 interface FilterBarProps {
   selectedCategories: Category[];
   onCategoriesChange: (categories: Category[]) => void;
-  priceRange: [number, number];
-  onPriceRangeChange: (range: [number, number]) => void;
-  onlyInStock: boolean;
-  onInStockChange: (value: boolean) => void;
 }
 
 export default function FilterBar({
   selectedCategories,
   onCategoriesChange,
-  onlyInStock,
-  onInStockChange,
 }: FilterBarProps) {
   const toggleCategory = (slug: Category) => {
     if (selectedCategories.includes(slug)) {
