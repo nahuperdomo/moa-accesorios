@@ -4,17 +4,21 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { CategoryInfo } from '@/lib/types';
-import { getCategories } from '@/lib/products';
+import { getCategories, getProducts } from '@/lib/products';
 
 export default function CategoryGrid() {
   const [categories, setCategories] = useState<CategoryInfo[]>([]);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const data = await getCategories();
-      setCategories(data);
+    const fetchData = async () => {
+      const [cats, products] = await Promise.all([getCategories(), getProducts()]);
+      const countsMap = new Map<string, number>();
+      products.forEach((p) => {
+        countsMap.set(p.category, (countsMap.get(p.category) || 0) + 1);
+      });
+      setCategories(cats.map((c) => ({ ...c, productCount: countsMap.get(c.slug) || 0 })));
     };
-    fetchCategories();
+    fetchData();
   }, []);
   return (
     <section className="max-w-5xl mx-auto px-6 py-16">
