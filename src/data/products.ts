@@ -36,9 +36,7 @@ export const products: Product[] = [
   { id: 'cadena-estrillas', name: 'CADENA ESTRILLAS', price: 290, category: 'cadenas', image: '/images/products/cadena-estrillas.jpg', inStock: true },
 
   // === CHOKERS ($200 - $310) ===
-  { id: 'choker-flor', name: 'CHOKER FLOR', price: 300, category: 'chokers', image: '/images/products/choker-flor.jpg', inStock: false },
-  { id: 'choker-brillo', name: 'CHOKER BRILLO', price: 200, category: 'chokers', image: '/images/products/choker-brillo.jpg', inStock: true },
-
+ 
   // === COLLARES MOSTACILLAS ($200 - $310) ===
   { id: 'collar-nudo-verde', name: 'COLLAR NUDO (DOBLE USO)', price: 270, category: 'collares-mostacillas', image: '/images/products/collar-nudo-verde.jpg', inStock: true, colors: ['verde', 'verde claro', 'gris'] },
   { id: 'collar-aria-verde', name: 'COLLAR ARIA MOSTACILLAS', price: 200, category: 'collares-mostacillas', image: '/images/products/collar-aria-verde.jpg', inStock: true, colors: ['verde', 'blanco', 'verde oscuro', 'rojo'] },
@@ -98,8 +96,13 @@ export const products: Product[] = [
 export const categories: CategoryInfo[] = [
   { slug: 'cadenas', name: 'Cadenas', description: 'Cadenas de acero en diferentes estilos', image: '/images/categories/cadenas.jpg', productCount: 32 },
   { slug: 'collares-mostacillas', name: 'Mostacillas', description: 'Collares artesanales de mostacillas', image: '/images/categories/mostacillas.jpg', productCount: 17 },
-  { slug: 'chokers', name: 'Chokers', description: 'Chokers de brillo y diseño', image: '/images/categories/chokers.jpg', productCount: 2 },
   { slug: 'cuero', name: 'Cuero', description: 'Chokers artesanales de cuero', image: '/images/categories/cuero.jpg', productCount: 4 },
   { slug: 'pulseras', name: 'Pulseras', description: 'Pulseras de perla, canutillo y esclavas', image: '/images/categories/pulseras.jpg', productCount: 16 },
-  { slug: 'otros', name: 'Otros', description: 'Pañuelos, tientos, caravanas y más', image: '/images/categories/otros.jpg', productCount: 6 },
+  { slug: 'caravanas', name: 'Caravanas', description: 'Caravanas de diferentes estilos', image: '/images/categories/caravanas.jpg', productCount: 4 },
+  { slug: 'llavero', name: 'Llaveros', description: 'Llaveros de diferentes estilos', image: '/images/categories/llaveros.jpg', productCount: 4 },
+  { slug: 'tientos', name: 'Tientos', description: 'Tientos de diferentes estilos', image: '/images/categories/tientos.jpg', productCount: 4 },
+  { slug: 'cintos', name: 'Cintos y Pañuelos', description: 'Cintos y pañuelos de diferentes estilos', image: '/images/categories/cintos.jpg', productCount: 4 },
+  { slug: 'combos', name: 'Combos', description: 'Combos de diferentes estilos', image: '/images/categories/combos.jpg', productCount: 4 },
+  
+
 ];

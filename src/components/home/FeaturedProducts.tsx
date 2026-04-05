@@ -2,9 +2,22 @@
 
 import Image from 'next/image';
 import { useRef, useEffect, useCallback, useState } from 'react';
-import { products } from '@/data/products';
+import { Product } from '@/lib/types';
+import { getProducts } from '@/lib/products';
 
 export default function FeaturedProducts() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      setProducts(data);
+      setLoading(false);
+    };
+    fetchProducts();
+  }, []);
+
   const featured = products.filter((p) => p.inStock).slice(0, 8);
   // Triple for seamless infinite loop
   const items = [...featured, ...featured, ...featured];

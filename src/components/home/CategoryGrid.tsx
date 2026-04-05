@@ -2,9 +2,20 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { categories } from '@/data/products';
+import { useState, useEffect } from 'react';
+import { CategoryInfo } from '@/lib/types';
+import { getCategories } from '@/lib/products';
 
 export default function CategoryGrid() {
+  const [categories, setCategories] = useState<CategoryInfo[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await getCategories();
+      setCategories(data);
+    };
+    fetchCategories();
+  }, []);
   return (
     <section className="max-w-5xl mx-auto px-6 py-16">
       <h2 className="text-center text-[10px] tracking-[0.3em] uppercase text-ink-muted mb-2">

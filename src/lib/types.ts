@@ -1,9 +1,13 @@
 export type Category =
   | 'cadenas'
   | 'collares-mostacillas'
-  | 'chokers'
   | 'pulseras'
   | 'cuero'
+  | 'caravanas'
+  | 'llavero'
+  | 'tientos'
+  | 'cintos'
+  | 'combos'
   | 'otros';
 
 export interface Product {
@@ -16,6 +20,7 @@ export interface Product {
   isNew?: boolean;
   description?: string;
   colors?: string[];
+  photo_variants?: string[];
 }
 
 export interface CategoryInfo {

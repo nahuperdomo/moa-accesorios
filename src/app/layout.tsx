@@ -26,6 +26,8 @@ export const metadata: Metadata = {
     'mostacillas',
     'chokers',
     'cuero',
+    'pulseras',
+    'caravanas',
     'uruguay',
     'san josé de mayo',
   ],

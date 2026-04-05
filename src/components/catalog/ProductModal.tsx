@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Product } from '@/lib/types';
@@ -12,9 +12,18 @@ interface ProductModalProps {
 }
 
 export default function ProductModal({ product, onClose }: ProductModalProps) {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  const images = product?.photo_variants?.length ? product.photo_variants : [product?.image || ''];
+
+  console.log('ProductModal - product:', product);
+  console.log('ProductModal - images:', images);
+  console.log('ProductModal - activeImageIndex:', activeImageIndex);
+
   useEffect(() => {
     if (product) {
       document.body.style.overflow = 'hidden';
+      setActiveImageIndex(0); // Reset to first image when product changes
     } else {
       document.body.style.overflow = '';
     }
@@ -55,13 +64,57 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
             <div className="md:flex">
               {/* Image */}
               <div className="relative aspect-square md:w-1/2 bg-bg-sage/30 flex-shrink-0">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                />
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeImageIndex}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="relative w-full h-full"
+                  >
+                    <Image
+                      src={images[activeImageIndex]}
+                      alt={product.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Navigation arrows */}
+                {images.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => setActiveImageIndex((prev) => (prev - 1 + images.length) % images.length)}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      onClick={() => setActiveImageIndex((prev) => (prev + 1) % images.length)}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors"
+                    >
+                      ›
+                    </button>
+                  </>
+                )}
+
+                {/* Thumbnails */}
+                {images.length > 1 && (
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                    {images.map((src, index) => (
+                      <button
+                        key={src}
+                        onClick={() => setActiveImageIndex(index)}
+                        className={`w-2 h-2 rounded-full transition-colors ${
+                          index === activeImageIndex ? 'bg-white' : 'bg-white/50'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Info */}

@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Category } from '@/lib/types';
-import { products } from '@/data/products';
+import { Category, Product } from '@/lib/types';
+import { getProducts } from '@/lib/products';
 import SearchBar from './SearchBar';
 import FilterBar from './FilterBar';
 import ProductGrid from './ProductGrid';
@@ -12,14 +12,30 @@ export default function CatalogContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('categoria') as Category | null;
 
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>(
     initialCategory ? [initialCategory] : []
   );
-  const [priceRange, setPriceRange] = useState<[number, number]>([100, 310]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
   const [onlyInStock, setOnlyInStock] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      console.log('CatalogContent fetched products:', data.length);
+      if (data.length > 0) {
+        console.log('Primer producto:', data[0]);
+      }
+      setProducts(data);
+      setLoading(false);
+    };
+    fetchProducts();
+  }, []);
+
   const filteredProducts = useMemo(() => {
+    if (loading) return [];
     const filtered = products.filter((p) => {
       if (selectedCategories.length && !selectedCategories.includes(p.category))
         return false;
@@ -37,7 +53,7 @@ export default function CatalogContent() {
       if (a.inStock !== b.inStock) return a.inStock ? -1 : 1;
       return a.price - b.price;
     });
-  }, [selectedCategories, priceRange, onlyInStock, searchQuery]);
+  }, [products, selectedCategories, priceRange, onlyInStock, searchQuery, loading]);
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -48,7 +64,7 @@ export default function CatalogContent() {
         </h1>
         <div className="w-12 h-px bg-border-medium mx-auto mb-4" />
         <p className="text-xs tracking-[0.1em] text-ink-muted">
-          {filteredProducts.length} productos
+          {loading ? 'Cargando productos...' : `${filteredProducts.length} productos`}
         </p>
       </div>
 
@@ -68,7 +84,13 @@ export default function CatalogContent() {
       />
 
       {/* Product grid */}
-      <ProductGrid products={filteredProducts} />
+      {loading ? (
+        <p className="text-center text-sm text-ink-muted mt-8">Cargando...</p>
+      ) : filteredProducts.length === 0 ? (
+        <p className="text-center text-sm text-ink-muted mt-8">No se encontró ningún producto con los filtros.</p>
+      ) : (
+        <ProductGrid products={filteredProducts} />
+      )}
     </div>
   );
 }

@@ -32,8 +32,7 @@ export default function FilterBar({
   return (
     <div className="mb-12">
       {/* Category chips - horizontal scroll */}
-      <div className="flex items-center gap-6 overflow-x-auto pb-2 scrollbar-hide">
-        <button
+    <div className="flex items-center justify-center gap-6 overflow-x-auto pb-2 scrollbar-hide w-full">        <button
           onClick={() => onCategoriesChange([])}
           className={cn(
             'text-xs tracking-[0.15em] uppercase whitespace-nowrap pb-1 border-b-2 transition-colors',
@@ -58,22 +57,6 @@ export default function FilterBar({
             {cat.name}
           </button>
         ))}
-
-        {/* Divider */}
-        <span className="text-border-medium">|</span>
-
-        {/* In stock toggle */}
-        <button
-          onClick={() => onInStockChange(!onlyInStock)}
-          className={cn(
-            'text-xs tracking-[0.15em] uppercase whitespace-nowrap pb-1 border-b-2 transition-colors',
-            onlyInStock
-              ? 'border-ink text-ink'
-              : 'border-transparent text-ink-muted hover:text-ink'
-          )}
-        >
-          Disponibles
-        </button>
       </div>
     </div>
   );
