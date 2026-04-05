@@ -18,7 +18,7 @@ export default function CategoryGrid() {
       });
       setCategories(
         cats
-          .filter((c) => c.slug !== 'otros' && c.slug !== 'chokers')
+          .filter((c) => !['otros', 'chokers'].includes(c.slug as string))
           .map((c) => ({ ...c, productCount: countsMap.get(c.slug) || 0 }))
       );
     };
