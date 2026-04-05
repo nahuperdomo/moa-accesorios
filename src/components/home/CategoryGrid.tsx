@@ -16,7 +16,11 @@ export default function CategoryGrid() {
       products.forEach((p) => {
         countsMap.set(p.category, (countsMap.get(p.category) || 0) + 1);
       });
-      setCategories(cats.map((c) => ({ ...c, productCount: countsMap.get(c.slug) || 0 })));
+      setCategories(
+        cats
+          .filter((c) => c.slug !== 'otros' && c.slug !== 'chokers')
+          .map((c) => ({ ...c, productCount: countsMap.get(c.slug) || 0 }))
+      );
     };
     fetchData();
   }, []);

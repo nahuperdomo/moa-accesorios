@@ -51,13 +51,6 @@ export default function Navbar() {
           >
             Nosotras
           </Link>
-          <span className="text-border-medium mx-3">&middot;</span>
-          <Link
-            href="/catalogo"
-            className="text-[0.8rem] font-light tracking-[0.18em] uppercase hover:text-mint transition-colors"
-          >
-            Contacto
-          </Link>
         </div>
 
         {/* Mobile hamburger - 3 thin lines */}
@@ -99,13 +92,6 @@ export default function Navbar() {
           className="text-2xl font-extralight tracking-[0.25em] uppercase text-ink hover:text-mint transition-colors"
         >
           Nosotras
-        </Link>
-        <Link
-          href="/catalogo"
-          onClick={() => setIsOpen(false)}
-          className="text-2xl font-extralight tracking-[0.25em] uppercase text-ink hover:text-mint transition-colors"
-        >
-          Contacto
         </Link>
       </div>
     </nav>
