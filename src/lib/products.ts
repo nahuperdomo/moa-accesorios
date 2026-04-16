@@ -12,16 +12,6 @@ export async function getProducts(): Promise<Product[]> {
     return [];
   }
 
-  console.log('Supabase products count:', data?.length);
-  console.log('Raw products from Supabase:', data);
-  console.log('First product photoVariants:', data?.[0]?.photo_variants);
-  console.log('All product IDs:', data?.map(p => ({ id: p.id, name: p.name, hasVariants: !!p.photo_variants })));
-  
-  // Log específico del producto actualizado
-  const targetProduct = data?.find(p => p.id === 'hilo-mostacillas-multi');
-  console.log('Target product (hilo-mostacillas-multi):', targetProduct);
-  console.log('Target product photo_variants:', targetProduct?.photo_variants);
-  
   return data || [];
 }
 

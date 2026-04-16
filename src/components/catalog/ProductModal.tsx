@@ -14,11 +14,28 @@ interface ProductModalProps {
 export default function ProductModal({ product, onClose }: ProductModalProps) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  const images = product?.photo_variants?.length ? product.photo_variants : product?.image ? [product.image] : [];
+  // Normalize photo_variants: Supabase may return a JSON string, array with
+  // empty/null entries, or nothing at all. Filter to valid non-empty URLs.
+  let rawVariants: unknown = product?.photo_variants;
+  if (typeof rawVariants === 'string') {
+    try {
+      rawVariants = JSON.parse(rawVariants);
+    } catch {
+      rawVariants = [];
+    }
+  }
+  const variants = Array.isArray(rawVariants)
+    ? (rawVariants as unknown[]).filter(
+        (v): v is string => typeof v === 'string' && v.trim().length > 0,
+      )
+    : [];
 
-  console.log('ProductModal - product:', product);
-  console.log('ProductModal - images:', images);
-  console.log('ProductModal - activeImageIndex:', activeImageIndex);
+  const mainImage = product?.image && product.image.trim().length > 0 ? product.image : '';
+
+  // Always include main image as fallback; de-duplicate.
+  const images = Array.from(
+    new Set(variants.length > 0 ? [mainImage, ...variants].filter(Boolean) : [mainImage].filter(Boolean)),
+  );
 
   useEffect(() => {
     if (product) {
@@ -73,7 +90,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                     transition={{ duration: 0.3 }}
                     className="relative w-full h-full"
                   >
-                    {images.length > 0 && (
+                    {images[activeImageIndex] ? (
                       <Image
                         src={images[activeImageIndex]}
                         alt={product.name}
@@ -82,6 +99,10 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                         className="object-cover"
                         unoptimized
                       />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-xs tracking-[0.15em] uppercase text-ink-muted">
+                        Sin imagen
+                      </div>
                     )}
                   </motion.div>
                 </AnimatePresence>

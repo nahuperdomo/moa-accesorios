@@ -24,10 +24,6 @@ export default function CatalogContent() {
   useEffect(() => {
     const fetchProducts = async () => {
       const data = await getProducts();
-      console.log('CatalogContent fetched products:', data.length);
-      if (data.length > 0) {
-        console.log('Primer producto:', data[0]);
-      }
       setProducts(data);
       setLoading(false);
     };
