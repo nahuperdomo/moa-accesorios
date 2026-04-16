@@ -14,7 +14,7 @@ interface ProductModalProps {
 export default function ProductModal({ product, onClose }: ProductModalProps) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  const images = product?.photo_variants?.length ? product.photo_variants : [product?.image || ''];
+  const images = product?.photo_variants?.length ? product.photo_variants : product?.image ? [product.image] : [];
 
   console.log('ProductModal - product:', product);
   console.log('ProductModal - images:', images);
@@ -73,13 +73,16 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                     transition={{ duration: 0.3 }}
                     className="relative w-full h-full"
                   >
-                    <Image
-                      src={images[activeImageIndex]}
-                      alt={product.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
-                    />
+                    {images.length > 0 && (
+                      <Image
+                        src={images[activeImageIndex]}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover"
+                        unoptimized
+                      />
+                    )}
                   </motion.div>
                 </AnimatePresence>
 
